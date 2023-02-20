@@ -22,6 +22,7 @@ function eventoSubmitRegistro (nombre, contrasenia){
 
     //creo el usuario y lo agrego a la lista
     usuarios.push(new Usuario(nombre, contrasenia))
+    console.log(usuarios)
 
     localStorage.setItem("lista_de_usuarios", JSON.stringify(usuarios));
 
@@ -31,10 +32,7 @@ function eventoSubmitRegistro (nombre, contrasenia){
 
 }
 
-function registro (event){
-
-    //freno el flow del input
-    event.preventDefault();
+function registro (){
 
     //limpio el contenedor principal
     contenedorPrincipal.innerHTML = " "
@@ -46,16 +44,21 @@ function registro (event){
     const inputNombreRegistro = document.createElement('input')
     inputNombreRegistro.type = 'text'
     inputNombreRegistro.placeholder = 'Crea tu usuario'
-    const nombre = inputNombreRegistro.value
 
     const inputContraseniaRegistro = document.createElement('input')
     inputContraseniaRegistro.type = 'password'
     inputContraseniaRegistro.placeholder = 'Crea tu contrasenia'
-    const contrasenia = inputContraseniaRegistro.value
 
     const submitUsuarioRegistro = document.createElement('button')
     submitUsuarioRegistro.innerHTML = 'Registrarme'
-    submitUsuarioRegistro.addEventListener('click', eventoSubmitRegistro(nombre, contrasenia))
+    submitUsuarioRegistro.addEventListener('click', () =>{
+
+        const nombre = inputNombreRegistro.value
+        const contrasenia = inputContraseniaRegistro.value
+
+        eventoSubmitRegistro(nombre, contrasenia)
+
+    })
 
     //agrego los elementos al div
     divContenedorRegistro.append(inputNombreRegistro, inputContraseniaRegistro, submitUsuarioRegistro)
@@ -116,7 +119,7 @@ function login (event){
 
     //creo los elementos
     const divContenedor = document.createElement('div')
-    divContenedor.className = 'contenedorInicio'
+    divContenedor.id = 'contenedorLogin'
 
     const inputNombre = document.createElement('input')
     inputNombre.type = 'text'
@@ -154,7 +157,7 @@ function inicioDelPrograma (){
 
     //obtengo el contenedor principal mediante el id
     const contenedor = document.getElementById('contenedorInicio')
-    contenedor.className = 'contenedorInicio'
+    contenedor.id = 'contenedorInicial'
 
     //creo los divs
     const divProfesor = document.createElement('div')
@@ -191,12 +194,9 @@ function inicioDelPrograma (){
 
 // programa
 
-
-const btnRegistro = document.getElementById('btnRegistro')
-btnRegistro.addEventListener('click', (e) =>{
-    registro(e)
-})
 const contenedorPrincipal = document.getElementById('contenedorPrincipal')
+const btnRegistro = document.getElementById('btnRegistro')
+btnRegistro.addEventListener('click', registro())
 let usuarios = []
 let usuariosEnLS = []
 
