@@ -177,6 +177,12 @@ function registroAlumno (event){
         const usuario = inputNombreRegistro.value;
         const contrasenia = inputContraseniaRegistro.value;
 
+        swal({
+            title: "Bienvenid@",
+            text: "Tu registro fue exitoso",
+            icon: "success",
+        })
+
         eventoSubmitRegistroAlumno(nombre, apellido, usuario, contrasenia)
 
     })
@@ -239,7 +245,7 @@ function buscarAlumnoIngresadoEnElLS (usuarioDelLogin, contraDelLogin){
 
     //veo si existe el usuario en el local storage
     const indiceAlumno = alumnosEnLS.find((alumno) => (alumno.usuario === usuarioDelLogin) && (alumno.contrasenia === contraDelLogin));
-    
+
     //si existe lo mando a otra pagina
     if (indiceAlumno !== undefined){
 
