@@ -111,6 +111,12 @@ function registroProfesor (event){
         const usuario = inputNombreRegistro.value;
         const contrasenia = inputContraseniaRegistro.value;
 
+        swal({
+            title: "Bienvenid@",
+            text: "Tu registro fue exitoso",
+            icon: "success",
+        })
+
         eventoSubmitRegistroProfesor(nombre, apellido, usuario, contrasenia, curso)
 
     })
