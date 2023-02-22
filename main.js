@@ -3,11 +3,12 @@
 
 class Alumno{
 
-    constructor(nombre, contrasenia){
+    constructor(nombre, apellido, usuario, contrasenia){
 
         this.nombre = nombre;
+        this.apellido = apellido;
+        this.usuario = usuario;
         this.contrasenia = contrasenia;
-        this.caracteristica = 'alumno'
 
     }
 
@@ -15,49 +16,39 @@ class Alumno{
 
 class Profesor{
 
-    constructor(nombre, contrasenia){
+    constructor(nombre, apellido, usuario, contrasenia, curso){
 
         this.nombre = nombre;
+        this.apellido = apellido;
+        this.usuario = usuario;
         this.contrasenia = contrasenia;
-        this.caracteristica = 'profesor'
+        this.curso = curso;
 
     }
 
 }
 
 
+
 // funciones
 
 
 //seccion registro
-function eventoSubmitRegistroProfesor (nombre, contrasenia){
+function eventoSubmitRegistroProfesor (nombre, apellido, usuario, contrasenia, curso){
 
     //creo el usuario y lo agrego a la lista
-    profesores.push(new Profesor(nombre, contrasenia))
+    profesores.push(new Profesor(nombre, apellido, usuario, contrasenia, curso));
 
     localStorage.setItem("lista_de_profesores", JSON.stringify(profesores));
 
-    guardarEnLSALosUsuarios()
-
 }
 
-function eventoSubmitRegistroAlumno (nombre, contrasenia){
+function eventoSubmitRegistroAlumno (nombre, apellido, usuario, contrasenia){
 
     //creo el usuario y lo agrego a la lista
-    alumnos.push(new Alumno(nombre, contrasenia))
+    alumnos.push(new Alumno(nombre, apellido, usuario, contrasenia));
 
-    localStorage.setItem("lista_de_alumnos", JSON.stringify(alumnos))
-
-    guardarEnLSALosUsuarios()
-
-}
-
-function guardarEnLSALosUsuarios (){
-
-    //concateno los arrays en el array usuarios y lo guardo en el LS
-    usuarios = profesores.concat(alumnos)
-
-    localStorage.setItem("lista_de_usuarios", JSON.stringify(usuarios));
+    localStorage.setItem("lista_de_alumnos", JSON.stringify(alumnos));
 
 }
 
@@ -67,36 +58,69 @@ function registroProfesor (event){
     event.preventDefault();
 
     //limpio el contenedor principal
-    contenedorPrincipal.innerHTML = " "
+    contenedorPrincipal.innerHTML = " ";
 
     //creo los elementos
-    const divContenedorRegistro = document.createElement('div')
-    divContenedorRegistro.className = 'contenedorInicio'
+    const divContenedorRegistro = document.createElement('div');
+    divContenedorRegistro.className = 'contenedorInicial';
 
-    const inputNombreRegistro = document.createElement('input')
-    inputNombreRegistro.type = 'text'
-    inputNombreRegistro.placeholder = 'Crea tu usuario'
+    const divVolver = document.createElement('div')
+    divVolver.className = 'volver'
 
-    const inputContraseniaRegistro = document.createElement('input')
-    inputContraseniaRegistro.type = 'password'
-    inputContraseniaRegistro.placeholder = 'Crea tu contrasenia'
+    const btnVolver = document.createElement('p')
+    btnVolver.innerHTML = 'volver al login'
+    btnVolver.addEventListener('click', (e) => {
 
-    const submitUsuarioRegistro = document.createElement('button')
-    submitUsuarioRegistro.innerHTML = 'Registrarme'
+        loginProfesor(e)
+
+    })
+
+    const nombreProfesor = document.createElement('input');
+    nombreProfesor.type = 'text';
+    nombreProfesor.placeholder = 'Ingresa tu nombre';
+    nombreProfesor.className = 'inputNombreContrasenia';
+
+    const apellidoProfesor = document.createElement('input');
+    apellidoProfesor.type = 'text';
+    apellidoProfesor.placeholder = 'Ingresa tu apellido';
+    apellidoProfesor.className = 'inputNombreContrasenia';
+
+    const cursoProfesor = document.createElement('input');
+    cursoProfesor.type = 'number';
+    cursoProfesor.placeholder = 'Ingresa tu curso';
+    cursoProfesor.className = 'inputNombreContrasenia';
+
+    const inputNombreRegistro = document.createElement('input');
+    inputNombreRegistro.type = 'text';
+    inputNombreRegistro.placeholder = 'Crea tu usuario';
+    inputNombreRegistro.className = 'inputNombreContrasenia';
+
+    const inputContraseniaRegistro = document.createElement('input');
+    inputContraseniaRegistro.type = 'password';
+    inputContraseniaRegistro.placeholder = 'Crea tu contrasenia';
+    inputContraseniaRegistro.className = 'inputNombreContrasenia';
+
+    const submitUsuarioRegistro = document.createElement('button');
+    submitUsuarioRegistro.innerHTML = 'Registrarme';
+    submitUsuarioRegistro.className = 'submitUsuario'
     submitUsuarioRegistro.addEventListener('click', () =>{
 
-        const nombre = inputNombreRegistro.value
-        const contrasenia = inputContraseniaRegistro.value
+        const nombre = nombreProfesor.value;
+        const apellido = apellidoProfesor.value;
+        const curso = cursoProfesor.value;
+        const usuario = inputNombreRegistro.value;
+        const contrasenia = inputContraseniaRegistro.value;
 
-        eventoSubmitRegistroProfesor(nombre, contrasenia)
+        eventoSubmitRegistroProfesor(nombre, apellido, usuario, contrasenia, curso)
 
     })
 
     //agrego los elementos al div
-    divContenedorRegistro.append(inputNombreRegistro, inputContraseniaRegistro, submitUsuarioRegistro)
+    divContenedorRegistro.append(nombreProfesor, apellidoProfesor, cursoProfesor, inputNombreRegistro, inputContraseniaRegistro, submitUsuarioRegistro);
+    divVolver.append(btnVolver);
 
     //agrego el div al contenedor
-    contenedorPrincipal.append(divContenedorRegistro)
+    contenedorPrincipal.append(divContenedorRegistro, divVolver);
 
 }
 
@@ -106,36 +130,63 @@ function registroAlumno (event){
     event.preventDefault();
 
     //limpio el contenedor principal
-    contenedorPrincipal.innerHTML = " "
+    contenedorPrincipal.innerHTML = " ";
 
     //creo los elementos
-    const divContenedorRegistro = document.createElement('div')
-    divContenedorRegistro.className = 'contenedorInicio'
+    const divContenedorRegistro = document.createElement('div');
+    divContenedorRegistro.className = 'contenedorInicial';
 
-    const inputNombreRegistro = document.createElement('input')
-    inputNombreRegistro.type = 'text'
-    inputNombreRegistro.placeholder = 'Crea tu usuario'
+    const divVolver = document.createElement('div')
+    divVolver.className = 'volver'
 
-    const inputContraseniaRegistro = document.createElement('input')
-    inputContraseniaRegistro.type = 'password'
-    inputContraseniaRegistro.placeholder = 'Crea tu contrasenia'
+    const btnVolver = document.createElement('p')
+    btnVolver.innerHTML = 'volver al login'
+    btnVolver.addEventListener('click', (e) => {
 
-    const submitUsuarioRegistro = document.createElement('button')
-    submitUsuarioRegistro.innerHTML = 'Registrarme'
+        loginAlumno(e)
+
+    })
+
+    const nombreAlumno = document.createElement('input');
+    nombreAlumno.type = 'text';
+    nombreAlumno.placeholder = 'Ingresa tu nombre';
+    nombreAlumno.className = 'inputNombreContrasenia';
+
+    const apellidoAlumno = document.createElement('input');
+    apellidoAlumno.type = 'text';
+    apellidoAlumno.placeholder = 'Ingresa tu apellido';
+    apellidoAlumno.className = 'inputNombreContrasenia';
+
+    const inputNombreRegistro = document.createElement('input');
+    inputNombreRegistro.type = 'text';
+    inputNombreRegistro.placeholder = 'Crea tu usuario';
+    inputNombreRegistro.className = 'inputNombreContrasenia';
+
+    const inputContraseniaRegistro = document.createElement('input');
+    inputContraseniaRegistro.type = 'password';
+    inputContraseniaRegistro.placeholder = 'Crea tu contrasenia';
+    inputContraseniaRegistro.className = 'inputNombreContrasenia';
+
+    const submitUsuarioRegistro = document.createElement('button');
+    submitUsuarioRegistro.innerHTML = 'Registrarme';
+    submitUsuarioRegistro.className = 'submitUsuario'
     submitUsuarioRegistro.addEventListener('click', () =>{
 
-        const nombre = inputNombreRegistro.value
-        const contrasenia = inputContraseniaRegistro.value
+        const nombre = nombreAlumno.value;
+        const apellido = apellidoAlumno.value;
+        const usuario = inputNombreRegistro.value;
+        const contrasenia = inputContraseniaRegistro.value;
 
-        eventoSubmitRegistroAlumno(nombre, contrasenia)
+        eventoSubmitRegistroAlumno(nombre, apellido, usuario, contrasenia)
 
     })
 
     //agrego los elementos al div
-    divContenedorRegistro.append(inputNombreRegistro, inputContraseniaRegistro, submitUsuarioRegistro)
+    divContenedorRegistro.append(nombreAlumno, apellidoAlumno, inputNombreRegistro, inputContraseniaRegistro, submitUsuarioRegistro);
+    divVolver.append(btnVolver);
 
     //agrego el div al contenedor
-    contenedorPrincipal.append(divContenedorRegistro)
+    contenedorPrincipal.append(divContenedorRegistro, divVolver);
 
 }
 
@@ -143,41 +194,42 @@ function registroAlumno (event){
 //seccion login
 function obtenerUsuariosEnLS (){
 
-    let alumnoLS = localStorage.getItem("lista_de_alumnos")
-    let profesorLS = localStorage.getItem("lista_de_profesores")
+    //obtengo a los arrays de alumnos y profesores del local storage
+    let alumnoLS = localStorage.getItem("lista_de_alumnos");
+    let profesorLS = localStorage.getItem("lista_de_profesores");
 
+    //me fijo que no esten vacios
     if (alumnoLS !== null){
 
-        alumnosEnLS = JSON.parse(alumnoLS)
+        alumnosEnLS = JSON.parse(alumnoLS);
 
     }
 
     if (profesorLS !== null){
 
-        profesoresEnLS = JSON.parse(profesorLS)
+        profesoresEnLS = JSON.parse(profesorLS);
 
     }
 
+    //los devuelvo
     return alumnosEnLS, profesoresEnLS
-
 
 }
 
-function buscarUsuarioIngresadoEnElLS (nombreDelLogin, contraDelLogin){
+function buscarUsuarioIngresadoEnElLS (usuarioDelLogin, contraDelLogin){
 
     //veo si existe el usuario en el local storage
-    const indiceAlumno = alumnosEnLS.find((usuario) => (usuario.nombre === nombreDelLogin) && (usuario.contrasenia === contraDelLogin));
-    const indiceProfesor = profesoresEnLS.find((usuario) => (usuario.nombre === nombreDelLogin) && (usuario.contrasenia === contraDelLogin));
+    const indiceAlumno = alumnosEnLS.find((alumno) => (alumno.usuario === usuarioDelLogin) && (alumno.contrasenia === contraDelLogin));
+    const indiceProfesor = profesoresEnLS.find((profesor) => (profesor.usuario === usuarioDelLogin) && (profesor.contrasenia === contraDelLogin));
 
     //si existe lo mando a otra pagina
-    //indiceUsuario !== undefined? window.location = 'main.html' : errorEnElLogin()
     if (indiceAlumno !== undefined){
 
-        window.location = 'paginaAlumno.html'
+        window.location = 'paginaAlumno.html';
 
     }else if (indiceProfesor !== undefined){
 
-        window.location = 'paginaProfesor.html'
+        window.location = 'paginaProfesor.html';
 
     }else{
         swal({
@@ -195,55 +247,60 @@ function loginProfesor (event){
     event.preventDefault();
 
     //limpio el contenedor principal
-    contenedorPrincipal.innerHTML = " "
+    contenedorPrincipal.innerHTML = " ";
 
     //creo los elementos
-    const divContenedor = document.createElement('div')
-    divContenedor.className = 'contenedorInicio'
+    const divContenedor = document.createElement('div');
+    divContenedor.className = 'contenedorInicial';
 
-    const inputNombre = document.createElement('input')
-    inputNombre.type = 'text'
-    inputNombre.placeholder = 'Usuario'
+    const inputNombre = document.createElement('input');
+    inputNombre.type = 'text';
+    inputNombre.placeholder = 'Usuario';
+    inputNombre.className = 'inputNombreContrasenia';
 
-    const inputContrasenia = document.createElement('input')
-    inputContrasenia.type = 'password'
-    inputContrasenia.placeholder = 'Contrasenia'
+    const inputContrasenia = document.createElement('input');
+    inputContrasenia.type = 'password';
+    inputContrasenia.placeholder = 'Contrasenia';
+    inputContrasenia.className = 'inputNombreContrasenia';
 
-    const submitUsuario = document.createElement('button')
-    submitUsuario.innerHTML = 'Ingresar'
+    const submitUsuario = document.createElement('button');
+    submitUsuario.innerHTML = 'Ingresar';
+    submitUsuario.className = 'submitUsuario';
     submitUsuario.addEventListener('click', (event) =>{
 
         //freno el flow del input
         event.preventDefault();
     
         //obtengo los datos de los inputs
-        const nombreDelLogin = inputNombre.value
-        const contraDelLogin = inputContrasenia.value
+        const usuarioDelLogin = inputNombre.value;
+        const contraDelLogin = inputContrasenia.value;
     
         obtenerUsuariosEnLS()
-        buscarUsuarioIngresadoEnElLS(nombreDelLogin, contraDelLogin) 
+        buscarUsuarioIngresadoEnElLS(usuarioDelLogin, contraDelLogin) 
     
     })
 
-    const divRegistro = document.createElement('div')
-    divRegistro.className = 'divRegistro'
+    const divRegistro = document.createElement('div');
+    divRegistro.className = 'divRegistro';
 
-    const btnRegistro = document.createElement('p')
-    btnRegistro.innerHTML = 'Registrate aca'
-    btnRegistro.className = 'aPaginaPrincipal'
+    const btnRegistro = document.createElement('p');
+    btnRegistro.innerHTML = 'Registrate aca';
+    btnRegistro.className = 'aPaginaPrincipal';
     btnRegistro.addEventListener('click', (e) => {
+
         registroProfesor(e)
+
     })
     
 
     //agrego btnRegistro al divRegistro
-    divRegistro.append(btnRegistro)
+    divRegistro.append(btnRegistro);
 
     //agrego los elementos al div
-    divContenedor.append(inputNombre, inputContrasenia, submitUsuario, divRegistro)
+    divContenedor.append(inputNombre, inputContrasenia, submitUsuario, divRegistro);
 
     //agrego el div al contenedor
-    contenedorPrincipal.append(divContenedor)
+    contenedorPrincipal.append(divContenedor);
 }
 
 function loginAlumno (event){
@@ -252,83 +309,113 @@ function loginAlumno (event){
     event.preventDefault();
 
     //limpio el contenedor principal
-    contenedorPrincipal.innerHTML = " "
+    contenedorPrincipal.innerHTML = " ";
 
     //creo los elementos
-    const divContenedor = document.createElement('div')
-    divContenedor.className = 'contenedorInicio'
+    const divContenedor = document.createElement('div');
+    divContenedor.className = 'contenedorInicial';
 
-    const inputNombre = document.createElement('input')
-    inputNombre.type = 'text'
-    inputNombre.placeholder = 'Usuario'
+    const inputNombre = document.createElement('input');
+    inputNombre.type = 'text';
+    inputNombre.placeholder = 'Usuario';
+    inputNombre.className = 'inputNombreContrasenia';
 
-    const inputContrasenia = document.createElement('input')
-    inputContrasenia.type = 'password'
-    inputContrasenia.placeholder = 'Contrasenia'
+    const inputContrasenia = document.createElement('input');
+    inputContrasenia.type = 'password';
+    inputContrasenia.placeholder = 'Contrasenia';
+    inputContrasenia.className = 'inputNombreContrasenia'
 
-    const submitUsuario = document.createElement('button')
-    submitUsuario.innerHTML = 'Ingresar'
+    const submitUsuario = document.createElement('button');
+    submitUsuario.innerHTML = 'Ingresar';
+    submitUsuario.className = 'submitUsuario';
     submitUsuario.addEventListener('click', (event) =>{
 
         //freno el flow del input
         event.preventDefault();
     
         //obtengo los datos de los inputs
-        const nombreDelLogin = inputNombre.value
-        const contraDelLogin = inputContrasenia.value
+        const usuarioDelLogin = inputNombre.value;
+        const contraDelLogin = inputContrasenia.value;
     
         obtenerUsuariosEnLS()
-        buscarUsuarioIngresadoEnElLS(nombreDelLogin, contraDelLogin) 
+        buscarUsuarioIngresadoEnElLS(usuarioDelLogin, contraDelLogin) 
     
     })
 
-    const divRegistro = document.createElement('div')
-    divRegistro.className = 'divRegistro'
+    const divRegistro = document.createElement('div');
+    divRegistro.className = 'divRegistro';
 
-    const btnRegistro = document.createElement('p')
-    btnRegistro.innerHTML = 'Registrate aca'
-    btnRegistro.className = 'aPaginaPrincipal'
+    const btnRegistro = document.createElement('p');
+    btnRegistro.innerHTML = 'Registrate aca';
+    btnRegistro.className = 'aPaginaPrincipal';
     btnRegistro.addEventListener('click', (e) => {
+
         registroAlumno(e)
+
     })
     
 
     //agrego btnRegistro al divRegistro
-    divRegistro.append(btnRegistro)
+    divRegistro.append(btnRegistro);
 
     //agrego los elementos al div
-    divContenedor.append(inputNombre, inputContrasenia, submitUsuario, divRegistro)
+    divContenedor.append(inputNombre, inputContrasenia, submitUsuario, divRegistro);
 
     //agrego el div al contenedor
-    contenedorPrincipal.append(divContenedor)
+    contenedorPrincipal.append(divContenedor);
 }
 
 //seccion API
-async function llamadoALaAPI (divProfesor, divAlumno){
+async function llamadoALaAPIRick (divProfesor){
 
     //obtengo los personajes
-    const response = await fetch("https://rickandmortyapi.com/api/character/[1,2]");
+    const response = await fetch("https://rickandmortyapi.com/api/character/[1]");
     const responseJSON = await response.json();
-    const personajesInicio = responseJSON.results;
+    const rick = responseJSON;
 
-    //recorro los personajes y genero los agrego al inicio
-    for (const personaje of personajesInicio){
+    for (const personaje of rick){
 
         //creo el div
-        const divPersonaje = document.createElement('div');
+        const divPersonajeRick = document.createElement('div');
+        divPersonajeRick.className = 'personaje';
 
-        //creo la imagen de los personajes
+        //creo la imagen del personaje
         const imagenPersonaje = document.createElement('img');
         imagenPersonaje.src = personaje.image;
 
-        //los agrego a sus divs correspondientes
-        divPersonaje.append(imagenPersonaje);
+        //lo agrego a su div
+        divPersonajeRick.append(imagenPersonaje);
 
-        divProfesor.append(divPersonaje);
-        divAlumno.append(divPersonaje);
+        divProfesor.append(divPersonajeRick);
 
     }
+    
+}
 
+async function llamadoALaAPIMorty (divAlumno){
+
+    //obtengo los personajes
+    const respuesta = await fetch("https://rickandmortyapi.com/api/character/[2]");
+    const respuestaJSON = await respuesta.json();
+    const morty = respuestaJSON;
+
+    for (const personaje of morty){
+
+        //creo el div
+        const divPersonajeMorty = document.createElement('div');
+        divPersonajeMorty.className = 'personaje';
+
+        //creo la imagen del personaje
+        const imagenPersonajeMorty = document.createElement('img');
+        imagenPersonajeMorty.src = personaje.image;
+
+        //lo agrego a su div
+        divPersonajeMorty.append(imagenPersonajeMorty);
+
+        divAlumno.append(divPersonajeMorty);
+
+    }
+    
 }
 
 
@@ -336,38 +423,39 @@ async function llamadoALaAPI (divProfesor, divAlumno){
 function inicioDelPrograma (){
 
     //obtengo el contenedor principal mediante el id
-    const contenedor = document.getElementById('contenedorInicio')
-    contenedor.id = 'contenedorInicial'
+    const contenedor = document.getElementById('contenedorInicio');
+    contenedor.id = 'contenedorInicial';
 
     //creo los divs
-    const divProfesor = document.createElement('div')
-    divProfesor.id = 'divProfesor'
+    const divProfesor = document.createElement('div');
+    divProfesor.id = 'divProfesor';
     divProfesor.addEventListener('click', (e) => {
         loginProfesor(e)
     })
 
-    const divAlumno = document.createElement('div')
-    divAlumno.id = 'divAlumno'
+    const divAlumno = document.createElement('div');
+    divAlumno.id = 'divAlumno';
     divAlumno.addEventListener('click', (e) =>{
         loginAlumno(e)
     })
     
-    const textoProfesor = document.createElement('p')
-    textoProfesor.innerHTML = 'Profesor'
-    textoProfesor.id = 'textoProfesor'
+    const textoProfesor = document.createElement('p');
+    textoProfesor.innerHTML = 'Profesor';
+    textoProfesor.id = 'textoProfesor';
 
-    const textoAlumno = document.createElement('p')
-    textoAlumno.innerHTML = 'Alumno'
-    textoAlumno.id = 'textoAlumno'
+    const textoAlumno = document.createElement('p');
+    textoAlumno.innerHTML = 'Alumno';
+    textoAlumno.id = 'textoAlumno';
 
     //agrego los textos a sus divs
-    divProfesor.append(textoProfesor)
-    divAlumno.append(textoAlumno)
+    divProfesor.append(textoProfesor);
+    divAlumno.append(textoAlumno);
 
-    llamadoALaAPI(divProfesor, divAlumno)
+    llamadoALaAPIRick(divProfesor)
+    llamadoALaAPIMorty(divAlumno)
 
     //los agrego al contenedor
-    contenedor.append(divProfesor, divAlumno)
+    contenedor.append(divProfesor, divAlumno);
 
 }
 
@@ -376,12 +464,10 @@ function inicioDelPrograma (){
 // programa
 
 
-const contenedorPrincipal = document.getElementById('contenedorPrincipal')
-let alumnosEnLS = []
-let profesoresEnLS = []
-let alumnos = []
-let profesores = []
+const contenedorPrincipal = document.getElementById('contenedorPrincipal');
+let alumnosEnLS = [];
+let profesoresEnLS = [];
+let alumnos = [];
+let profesores = [];
 
 inicioDelPrograma()
-
-//localStorage.clear()

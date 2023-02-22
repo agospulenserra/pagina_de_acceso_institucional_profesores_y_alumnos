@@ -56,6 +56,13 @@
     font-size: 24px;
 }
 
+.personaje{
+    width: 70%;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+}
+
 #divAlumno{
     display: flex;
     flex-direction: column;
@@ -72,6 +79,40 @@
 
 #registroContenedorPrincipal{
     display: block;
+}
+
+.contenedorInicial{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50vh;
+    margin-top: 10rem;
+}
+
+.inputNombreContrasenia{
+    margin: 15px;
+    padding: 5px;
+    background-color: aliceblue;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.submitUsuario{
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    background-color: aliceblue;
+    border: 1px solid cadetblue;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px;
+}
+
+.submitUsuario:hover{
+    background-color: antiquewhite;
+    cursor: pointer;
 }
 
 .textoPrincipal{
@@ -110,4 +151,98 @@
 .aPaginaPrincipal:hover{
     background-color: antiquewhite;
     cursor: pointer;
+}
+
+.contenedorAlumno{
+    background-color: antiquewhite;
+}
+
+.opcion{
+    width: 40%;
+    height: 40vh;
+    background-color: #3b5998;
+    margin: 10px;
+    padding: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+}
+
+.ulProfesores{
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+    padding: 25px;
+    background-color: #e4405f;
+    justify-content: space-between;
+}
+
+.liProfesores{
+    list-style: none;
+    font-size: 24px;
+    margin: 10px;
+    padding: 5px;
+}
+
+footer{
+    background-color: #5E548E;
+    padding-bottom: 1rem;
+    width: 100%;
+}
+
+.social-media {
+    margin-top: 2rem;
+    padding-top: 2rem;
+}
+
+.social-media ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    flex-wrap: wrap;
+}
+
+.social-media ul li {
+    margin: 0px 10px;
+    margin-bottom: 2rem;
+}
+
+.social-media ul li a {
+    position: relative;
+    display: block;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    border-radius: 50%;
+    padding: 6px;
+    box-sizing: border-box;
+    text-decoration: none;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(0deg, #ddd, #fff);
+    transition: .5s;
+}
+
+.social-media ul li a:hover {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+}
+
+.social-media ul li a .icon-f {
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: linear-gradient(0deg, #fff, #ddd);
+    border-radius: 50%;
+    line-height: calc(60px - 12px);
+    font-size: 24px;
+    color: #262626;
+    transition: .5s;
+}
+
+.social-media ul li:nth-child(1) a:hover .icon-f {
+    color: #3b5998;
+}
+
+.social-media ul li:nth-child(2) a:hover .icon-f {
+    color: #e4405f;
 }
