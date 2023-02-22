@@ -1,20 +1,3 @@
-// clases
-
-
-class Notas{
-
-    constructor(valor1, valor2, valor3, promedio){
-
-        this.valor1 = valor1;
-        this.valor2 = valor2;
-        this.valor3 = valor3;
-        this.promedio = promedio;
-
-    }
-
-}
-
-
 // funciones
 
 
