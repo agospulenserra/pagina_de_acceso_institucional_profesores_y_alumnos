@@ -216,20 +216,34 @@ function obtenerUsuariosEnLS (){
 
 }
 
-function buscarUsuarioIngresadoEnElLS (usuarioDelLogin, contraDelLogin){
+function buscarProfesorIngresadoEnElLS (usuarioDelLogin, contraDelLogin){
+
+    //veo si existe el usuario en el local storage
+    const indiceProfesor = profesoresEnLS.find((profesor) => (profesor.usuario === usuarioDelLogin) && (profesor.contrasenia === contraDelLogin));
+
+    //si existe lo mando a otra pagina
+    if (indiceProfesor !== undefined){
+
+        window.location = 'paginaProfesor.html';
+
+    }else{
+        swal({
+            title: "Error",
+            text: "Datos incorrectos o usuario inexistente",
+            icon: "error",
+          });
+    }
+}
+
+function buscarAlumnoIngresadoEnElLS (usuarioDelLogin, contraDelLogin){
 
     //veo si existe el usuario en el local storage
     const indiceAlumno = alumnosEnLS.find((alumno) => (alumno.usuario === usuarioDelLogin) && (alumno.contrasenia === contraDelLogin));
-    const indiceProfesor = profesoresEnLS.find((profesor) => (profesor.usuario === usuarioDelLogin) && (profesor.contrasenia === contraDelLogin));
-
+    
     //si existe lo mando a otra pagina
     if (indiceAlumno !== undefined){
 
         window.location = 'paginaAlumno.html';
-
-    }else if (indiceProfesor !== undefined){
-
-        window.location = 'paginaProfesor.html';
 
     }else{
         swal({
@@ -276,7 +290,7 @@ function loginProfesor (event){
         const contraDelLogin = inputContrasenia.value;
     
         obtenerUsuariosEnLS()
-        buscarUsuarioIngresadoEnElLS(usuarioDelLogin, contraDelLogin) 
+        buscarProfesorIngresadoEnElLS(usuarioDelLogin, contraDelLogin) 
     
     })
 
@@ -338,7 +352,7 @@ function loginAlumno (event){
         const contraDelLogin = inputContrasenia.value;
     
         obtenerUsuariosEnLS()
-        buscarUsuarioIngresadoEnElLS(usuarioDelLogin, contraDelLogin) 
+        buscarAlumnoIngresadoEnElLS(usuarioDelLogin, contraDelLogin) 
     
     })
 
